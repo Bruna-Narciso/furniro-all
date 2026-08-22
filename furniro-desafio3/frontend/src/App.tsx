@@ -9,6 +9,7 @@ import { Home } from "./pages/Home";
 import { Shop } from "./pages/Shop";
 import { SingleProduct } from "./pages/SingleProduct";
 import { SignUp } from "./pages/SignUp";
+import { Login } from "./pages/Login";
 import { NotFound } from "./components/NotFound";
 
 export default function App() {
@@ -30,6 +31,8 @@ export default function App() {
         </Route>
 
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
