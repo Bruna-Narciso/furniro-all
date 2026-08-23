@@ -4,6 +4,7 @@ import {
   validateLoginForm,
   type LoginFormData,
 } from "../../utils/validateLoginForm";
+import { login } from "../../services/loginService";
 
 const INITIAL_FORM_DATA: LoginFormData = {
   email: "",
@@ -26,19 +27,29 @@ export default function LoginForm() {
     }));
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
 
-    const validationErrors = validateLoginForm(formData);
+  const validationErrors = validateLoginForm(formData);
+  setErrors(validationErrors);
 
-    setErrors(validationErrors);
+  if (Object.keys(validationErrors).length > 0) {
+    return;
+  }
 
-    if (Object.keys(validationErrors).length > 0) {
-      return;
-    }
+ try {
+  const result = await login(
+    formData.email,
+    formData.password,
+  );
 
-    console.log(formData);
-  };
+  localStorage.setItem("token", result.token);
+
+  console.log(result);
+} catch (error) {
+  console.error(error);
+}
+};
 
   return (
     <form

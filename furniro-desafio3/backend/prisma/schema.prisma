@@ -15,14 +15,24 @@ model Product {
   category         String
   price            Float
   discount         Float    @default(0)
-  description      String 
-  fullDescription  String   
-  additionalInfo   String  
-  image            String 
-  additionalImages String   
-  colors           String 
-  sizes            String 
+  description      String
+  fullDescription  String
+  additionalInfo   String
+  image            String
+  additionalImages String
+  colors           String
+  sizes            String
   isNew            Boolean  @default(false)
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
+}
+
+model User {
+  id        String   @id @default(uuid())
+  firstName String
+  lastName  String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
