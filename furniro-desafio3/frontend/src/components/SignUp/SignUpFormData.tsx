@@ -1,9 +1,13 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
+import { useNavigate } from "react-router";
 import SignUpInput from "./SignUpInput";
 import {
-    validateSignUpForm,
-    type SignUpFormData,
+  validateSignUpForm,
+  type SignUpFormData,
 } from "../../utils/validateSignUpForm";
+import { signUp } from "../../services/authService";
+
+
 
 const INITIAL_FORM_DATA: SignUpFormData = {
   firstName: "",
@@ -14,6 +18,8 @@ const INITIAL_FORM_DATA: SignUpFormData = {
 };
 
 export default function SignUpForm() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] =
     useState<SignUpFormData>(INITIAL_FORM_DATA);
 
@@ -29,18 +35,23 @@ export default function SignUpForm() {
     }));
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const validationErrors = validateSignUpForm(formData);
-
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length > 0) {
       return;
     }
 
-    console.log(formData);
+    try {
+      await signUp(formData);
+
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
