@@ -1,4 +1,4 @@
-import LoginForm from "./LoginForm";
+import LoginFormInput from "./LoginFormInput";
 
 export default function LoginLayout() {
   return (
@@ -19,7 +19,7 @@ export default function LoginLayout() {
             className="mx-auto mb-6 h-auto w-[160px]"
           />
 
-          <LoginForm />
+          <LoginFormInput />
         </div>
       </div>
     </main>
