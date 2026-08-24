@@ -1,9 +1,20 @@
-import { useState, type ChangeEvent, type FormEvent } from "react";
-import { Link } from "react-router";
+import {
+  useState,
+  type ChangeEvent,
+  type FormEvent,
+} from "react";
+
+import {
+  Link,
+  useLocation,
+  useNavigate,
+} from "react-router";
+
 import {
   validateLoginForm,
   type LoginFormData,
 } from "../../utils/validateLoginForm";
+
 import { login } from "../../services/loginService";
 
 const INITIAL_FORM_DATA: LoginFormData = {
@@ -11,14 +22,19 @@ const INITIAL_FORM_DATA: LoginFormData = {
   password: "",
 };
 
-export default function LoginForm() {
+export default function LoginFormInput() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [formData, setFormData] =
     useState<LoginFormData>(INITIAL_FORM_DATA);
 
   const [errors, setErrors] =
     useState<Partial<LoginFormData>>({});
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    event: ChangeEvent<HTMLInputElement>,
+  ) => {
     const { name, value } = event.target;
 
     setFormData((previous) => ({
@@ -27,7 +43,9 @@ export default function LoginForm() {
     }));
   };
 
-const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+ const handleSubmit = async (
+  event: FormEvent<HTMLFormElement>,
+) => {
   event.preventDefault();
 
   const validationErrors = validateLoginForm(formData);
@@ -37,18 +55,21 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     return;
   }
 
- try {
-  const result = await login(
-    formData.email,
-    formData.password,
-  );
+  try {
+    const result = await login(
+      formData.email,
+      formData.password,
+    );
 
-  localStorage.setItem("token", result.token);
+    localStorage.setItem("token", result.token);
+    localStorage.setItem("user", JSON.stringify(result.user));
 
-  console.log(result);
-} catch (error) {
-  console.error(error);
-}
+    const from = location.state?.from?.pathname || "/";
+
+    navigate(from, { replace: true });
+  } catch (error) {
+    console.error(error);
+  }
 };
 
   return (
