@@ -3,7 +3,7 @@ export default function CheckoutBanner() {
     <section className="relative h-[180px] w-full overflow-hidden">
       {/* Imagem de fundo */}
       <img
-        src="/images/shop-bg.jpg"
+        src="/Checkout/imageLogo.png"
         alt=""
         className="absolute inset-0 h-full w-full object-cover"
       />
@@ -15,7 +15,7 @@ export default function CheckoutBanner() {
       <div className="relative z-10 flex h-full flex-col items-center justify-center">
         {/* Logo/ícone */}
         <div className="mb-1 text-[22px]">
-          <span className="text-[#B88E2F]">⚠</span>
+          <img src="/Logo/Logo.svg" alt="" />
         </div>
 
         <h1 className="text-[32px] font-medium text-black">

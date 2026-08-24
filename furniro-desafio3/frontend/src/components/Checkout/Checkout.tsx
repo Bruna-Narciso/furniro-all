@@ -12,6 +12,7 @@ import {
 } from "../../../../backend/schemas/checkoutSchema";
 
 import { useCartStore } from "../../stores/cart.store";
+import Benefits from "../Benefits/Benefits";
 
 export function CheckoutInput() {
   const clearCart = useCartStore((state) => state.clearCart);
@@ -64,6 +65,7 @@ export function CheckoutInput() {
           </form>
         </FormProvider>
       </main>
+      <Benefits/>
     </div>
   );
 }

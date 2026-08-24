@@ -43,34 +43,49 @@ export default function LoginFormInput() {
     }));
   };
 
- const handleSubmit = async (
-  event: FormEvent<HTMLFormElement>,
-) => {
-  event.preventDefault();
+  const handleSubmit = async (
+    event: FormEvent<HTMLFormElement>,
+  ) => {
+    event.preventDefault();
 
-  const validationErrors = validateLoginForm(formData);
-  setErrors(validationErrors);
+    const validationErrors =
+      validateLoginForm(formData);
 
-  if (Object.keys(validationErrors).length > 0) {
-    return;
-  }
+    setErrors(validationErrors);
 
-  try {
-    const result = await login(
-      formData.email,
-      formData.password,
-    );
+    if (Object.keys(validationErrors).length > 0) {
+      return;
+    }
 
-    localStorage.setItem("token", result.token);
-    localStorage.setItem("user", JSON.stringify(result.user));
+    try {
+      const result = await login(
+        formData.email,
+        formData.password,
+      );
 
-    const from = location.state?.from?.pathname || "/";
+      // Salva o token
+      localStorage.setItem(
+        "token",
+        result.token,
+      );
 
-    navigate(from, { replace: true });
-  } catch (error) {
-    console.error(error);
-  }
-};
+      // Salva os dados do usuário
+      localStorage.setItem(
+        "user",
+        JSON.stringify(result.user),
+      );
+
+      // Volta para a página que tentou acessar
+      const from =
+        location.state?.from?.pathname || "/";
+
+      navigate(from, {
+        replace: true,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <form
