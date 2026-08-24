@@ -5,6 +5,8 @@ export default function LogoutButton() {
 
   function handleLogout() {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
     navigate("/login");
   }
 
@@ -12,6 +14,7 @@ export default function LogoutButton() {
     <button
       type="button"
       onClick={handleLogout}
+      className="text-sm hover:underline"
     >
       Logout
     </button>
