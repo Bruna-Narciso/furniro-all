@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router";
-import { AuthProvider } from "./components/AuthContext/authContext";
+import { AuthProvider } from "./components/AuthContext/AuthContext";
 
 import { RootLayout } from "./layout";
 import { ScrollToTop } from "./components/ScrollToTop/ScrollToTop";
@@ -13,6 +13,7 @@ import { SignUp } from "./pages/SignUp";
 import { Login } from "./pages/Login";
 import { Checkout } from "./pages/Checkout";
 import { NotFound } from "./components/NotFound";
+import { Contact } from "./pages/Contact";
 
 export default function App() {
   return (
@@ -48,6 +49,7 @@ export default function App() {
                 path="/checkout"
                 element={<Checkout />}
               />
+              <Route path="/Contact" element={<Contact/>}/>
             </Route>
           </Route>
 
