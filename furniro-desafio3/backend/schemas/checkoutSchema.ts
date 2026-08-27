@@ -3,10 +3,12 @@ import { z } from "zod";
 export const checkoutSchema = z.object({
   firstName: z
     .string()
+    .trim()
     .min(1, "First name is required."),
 
   lastName: z
     .string()
+    .trim()
     .min(1, "Last name is required."),
 
   company: z
@@ -21,18 +23,22 @@ export const checkoutSchema = z.object({
 
   country: z
     .string()
+    .trim()
     .min(1, "Country / Region is required."),
 
   street: z
     .string()
+    .trim()
     .min(1, "Street address is required."),
 
   city: z
     .string()
+    .trim()
     .min(1, "Town / City is required."),
 
   province: z
     .string()
+    .trim()
     .min(1, "Province is required."),
 
   additionalAddress: z
@@ -41,6 +47,7 @@ export const checkoutSchema = z.object({
 
   email: z
     .string()
+    .trim()
     .min(1, "Email is required.")
     .email("Invalid email address."),
 

@@ -1,4 +1,4 @@
-import { useFormContext } from "react-hook-form";
+import { useFormContext, useFormState } from "react-hook-form";
 
 import type { CheckoutFormData } from "../../../../backend/schemas/checkoutSchema";
 
@@ -20,8 +20,9 @@ export default function BillingForm() {
     setValue,
     setError,
     clearErrors,
-    formState: { errors },
   } = useFormContext<CheckoutFormData>();
+
+  const { errors } = useFormState<CheckoutFormData>();
 
   async function searchZipCode(zipCode: string) {
     const cleanZipCode = zipCode.replace(/\D/g, "");
@@ -36,7 +37,7 @@ export default function BillingForm() {
       );
 
       if (!response.ok) {
-        throw new Error("Erro ao consultar o CEP.");
+        throw new Error();
       }
 
       const data: ViaCepResponse = await response.json();
@@ -76,14 +77,13 @@ export default function BillingForm() {
         shouldValidate: true,
         shouldDirty: true,
       });
-    } catch (error) {
-      console.error("Erro ao buscar CEP:", error);
-
+    } catch {
       setError("zipCode", {
         type: "manual",
         message: "Não foi possível consultar o CEP.",
       });
     }
+    console.log("BILLING ERRORS:", errors);
   }
 
   return (
@@ -106,7 +106,11 @@ export default function BillingForm() {
               id="firstName"
               type="text"
               {...register("firstName")}
-              className="h-[42px] w-full rounded-[4px] border border-[#9F9F9F] px-3 text-[13px] outline-none focus:border-[#B88E2F]"
+              className={`h-[42px] w-full rounded-[4px] border px-3 text-[13px] outline-none focus:border-[#B88E2F] ${
+                errors.firstName
+                  ? "border-red-500"
+                  : "border-[#9F9F9F]"
+              }`}
             />
 
             {errors.firstName && (
@@ -128,7 +132,11 @@ export default function BillingForm() {
               id="lastName"
               type="text"
               {...register("lastName")}
-              className="h-[42px] w-full rounded-[4px] border border-[#9F9F9F] px-3 text-[13px] outline-none focus:border-[#B88E2F]"
+              className={`h-[42px] w-full rounded-[4px] border px-3 text-[13px] outline-none focus:border-[#B88E2F] ${
+                errors.lastName
+                  ? "border-red-500"
+                  : "border-[#9F9F9F]"
+              }`}
             />
 
             {errors.lastName && (
@@ -153,12 +161,6 @@ export default function BillingForm() {
             {...register("company")}
             className="h-[42px] w-full rounded-[4px] border border-[#9F9F9F] px-3 text-[13px] outline-none focus:border-[#B88E2F]"
           />
-
-          {errors.company && (
-            <p className="mt-1 text-xs text-red-500">
-              {errors.company.message}
-            </p>
-          )}
         </div>
 
         <div>
@@ -179,7 +181,11 @@ export default function BillingForm() {
                 searchZipCode(event.target.value);
               },
             })}
-            className="h-[42px] w-full rounded-[4px] border border-[#9F9F9F] px-3 text-[13px] outline-none focus:border-[#B88E2F]"
+            className={`h-[42px] w-full rounded-[4px] border px-3 text-[13px] outline-none focus:border-[#B88E2F] ${
+              errors.zipCode
+                ? "border-red-500"
+                : "border-[#9F9F9F]"
+            }`}
           />
 
           {errors.zipCode && (
@@ -201,7 +207,11 @@ export default function BillingForm() {
             id="country"
             type="text"
             {...register("country")}
-            className="h-[42px] w-full rounded-[4px] border border-[#9F9F9F] bg-gray-50 px-3 text-[13px] outline-none focus:border-[#B88E2F]"
+            className={`h-[42px] w-full rounded-[4px] border bg-gray-50 px-3 text-[13px] outline-none focus:border-[#B88E2F] ${
+              errors.country
+                ? "border-red-500"
+                : "border-[#9F9F9F]"
+            }`}
           />
 
           {errors.country && (
@@ -223,7 +233,11 @@ export default function BillingForm() {
             id="street"
             type="text"
             {...register("street")}
-            className="h-[42px] w-full rounded-[4px] border border-[#9F9F9F] bg-gray-50 px-3 text-[13px] outline-none focus:border-[#B88E2F]"
+            className={`h-[42px] w-full rounded-[4px] border bg-gray-50 px-3 text-[13px] outline-none focus:border-[#B88E2F] ${
+              errors.street
+                ? "border-red-500"
+                : "border-[#9F9F9F]"
+            }`}
           />
 
           {errors.street && (
@@ -245,7 +259,11 @@ export default function BillingForm() {
             id="city"
             type="text"
             {...register("city")}
-            className="h-[42px] w-full rounded-[4px] border border-[#9F9F9F] bg-gray-50 px-3 text-[13px] outline-none focus:border-[#B88E2F]"
+            className={`h-[42px] w-full rounded-[4px] border px-3 text-[13px] outline-none focus:border-[#B88E2F] ${
+              errors.city
+                ? "border-red-500"
+                : "border-[#9F9F9F]"
+            }`}
           />
 
           {errors.city && (
@@ -267,7 +285,11 @@ export default function BillingForm() {
             id="province"
             type="text"
             {...register("province")}
-            className="h-[42px] w-full rounded-[4px] border border-[#9F9F9F] bg-gray-50 px-3 text-[13px] outline-none focus:border-[#B88E2F]"
+            className={`h-[42px] w-full rounded-[4px] border bg-gray-50 px-3 text-[13px] outline-none focus:border-[#B88E2F] ${
+              errors.province
+                ? "border-red-500"
+                : "border-[#9F9F9F]"
+            }`}
           />
 
           {errors.province && (
@@ -291,12 +313,6 @@ export default function BillingForm() {
             {...register("additionalAddress")}
             className="h-[42px] w-full rounded-[4px] border border-[#9F9F9F] px-3 text-[13px] outline-none focus:border-[#B88E2F]"
           />
-
-          {errors.additionalAddress && (
-            <p className="mt-1 text-xs text-red-500">
-              {errors.additionalAddress.message}
-            </p>
-          )}
         </div>
 
         <div>
@@ -311,7 +327,11 @@ export default function BillingForm() {
             id="email"
             type="email"
             {...register("email")}
-            className="h-[42px] w-full rounded-[4px] border border-[#9F9F9F] px-3 text-[13px] outline-none focus:border-[#B88E2F]"
+            className={`h-[42px] w-full rounded-[4px] border px-3 text-[13px] outline-none focus:border-[#B88E2F] ${
+              errors.email
+                ? "border-red-500"
+                : "border-[#9F9F9F]"
+            }`}
           />
 
           {errors.email && (
@@ -327,14 +347,8 @@ export default function BillingForm() {
             {...register("additionalInformation")}
             rows={1}
             placeholder="Additional information"
-            className="min-h-[42px] w-full resize-none rounded-[4px] border border-[#9F9F9F] px-3 py-3 text-[12px] outline-none placeholder:text-[#9F9F9F] focus:border-[#B88E2F] mb-[160px]"
+            className="mb-[160px] min-h-[42px] w-full resize-none rounded-[4px] border border-[#9F9F9F] px-3 py-3 text-[12px] outline-none placeholder:text-[#9F9F9F] focus:border-[#B88E2F]"
           />
-
-          {errors.additionalInformation && (
-            <p className="mt-1 text-xs text-red-500">
-              {errors.additionalInformation.message}
-            </p>
-          )}
         </div>
       </div>
     </section>
