@@ -3,18 +3,15 @@ import {
   type ChangeEvent,
   type FormEvent,
 } from "react";
-
 import {
   Link,
   useLocation,
   useNavigate,
 } from "react-router";
-
 import {
   validateLoginForm,
   type LoginFormData,
 } from "../../utils/validateLoginForm";
-
 import { login } from "../../services/loginService";
 
 const INITIAL_FORM_DATA: LoginFormData = {
@@ -32,6 +29,8 @@ export default function LoginFormInput() {
   const [errors, setErrors] =
     useState<Partial<LoginFormData>>({});
 
+  const [loginError, setLoginError] = useState("");
+
   const handleChange = (
     event: ChangeEvent<HTMLInputElement>,
   ) => {
@@ -41,12 +40,16 @@ export default function LoginFormInput() {
       ...previous,
       [name]: value,
     }));
+
+    setLoginError("");
   };
 
   const handleSubmit = async (
     event: FormEvent<HTMLFormElement>,
   ) => {
     event.preventDefault();
+
+    setLoginError("");
 
     const validationErrors =
       validateLoginForm(formData);
@@ -63,19 +66,16 @@ export default function LoginFormInput() {
         formData.password,
       );
 
-      // Salva o token
       localStorage.setItem(
         "token",
         result.token,
       );
 
-      // Salva os dados do usuário
       localStorage.setItem(
         "user",
         JSON.stringify(result.user),
       );
 
-      // Volta para a página que tentou acessar
       const from =
         location.state?.from?.pathname || "/";
 
@@ -84,6 +84,7 @@ export default function LoginFormInput() {
       });
     } catch (error) {
       console.error(error);
+      setLoginError("Incorrect email or password.");
     }
   };
 
@@ -128,6 +129,12 @@ export default function LoginFormInput() {
           </p>
         )}
       </div>
+
+      {loginError && (
+        <p className="text-sm text-red-500">
+          {loginError}
+        </p>
+      )}
 
       <button
         type="submit"
