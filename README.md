@@ -46,27 +46,43 @@ The project was built with a focus on reusable components, responsive layouts, f
 ## 📁 Project Structure
 
 ```text
-src/
-├── components/
-│   ├── Benefits/
-│   ├── Billing/
-│   ├── Cart/
-│   ├── Contact/
-│   ├── Header/
-│   ├── Login/
-│   └── ...
-├── pages/
-│   ├── Home/
-│   ├── Shop/
-│   ├── Checkout/
-│   ├── Contact/
-│   ├── Login/
-│   └── SignUp/
-├── services/
-├── stores/
-├── utils/
-├── lib/
-└── App.tsx
+backend/
+├── prisma/
+├── src/
+│   ├── controllers/
+│   ├── exceptions/
+│   ├── factories/
+│   ├── lib/
+│   ├── middlewares/
+│   ├── model/
+│   ├── repositories/
+│   ├── routes/
+│   ├── services/
+│   └── index.ts
+└── .env.example
+
+frontend/
+└── src/
+    ├── components/
+    │   ├── Benefits/
+    │   ├── Checkout/
+    │   ├── Cart/
+    │   ├── Contact/
+    │   ├── Header/
+    │   ├── Login/
+    │   └── ...
+    ├── pages/
+    │   ├── Home/
+    │   ├── Shop/
+    │   ├── Checkout/
+    │   ├── Contact/
+    │   ├── Login/
+    │   └── SignUp/
+    ├── services/
+    ├── stores/
+    ├── utils/
+    ├── lib/
+    └── App.tsx
 ```
 
 ---
