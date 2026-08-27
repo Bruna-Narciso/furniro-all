@@ -1,7 +1,6 @@
 export function ContactInfo() {
   return (
-    <div className="flex flex-col gap-8">
-      {/* Address */}
+    <div className="flex flex-col gap-[42px]">
       <div className="flex gap-5">
         <img
           src="/Contact/location.svg"
@@ -10,21 +9,16 @@ export function ContactInfo() {
         />
 
         <div>
-          <h3 className="text-[14px] font-semibold text-black">
+          <h3 className="font-poppins text-[24px] font-medium leading-none text-[#000000] mb-[5px]">
             Address
           </h3>
 
-          <p className="mt-1 max-w-[160px] text-[10px] leading-[14px] text-black">
-            236 5th SE Avenue, New
-            <br />
-            York NY10000, United
-            <br />
-            States
+          <p className="mt-[0px] w-[212px] font-poppins text-[16px] font-normal leading-none text-[#000000]">
+            236 5th SE Avenue, New York NY10000, United States
           </p>
         </div>
       </div>
 
-      {/* Phone */}
       <div className="flex gap-5">
         <img
           src="/Contact/phone.svg"
@@ -33,17 +27,17 @@ export function ContactInfo() {
         />
 
         <div>
-          <h3 className="text-[14px] font-semibold text-black">
+          <h3 className="font-poppins text-[24px] font-medium leading-none text-[#000000] mb-[5px]">
             Phone
           </h3>
 
-          <p className="mt-1 text-[10px] leading-[14px] text-black">
+          <p className="mt-[0px] w-[212px] font-poppins text-[16px] font-normal leading-none text-[#000000]">
             Mobile:{" "}
             <a
               href="tel:+845466789"
               className="transition hover:text-[#B88E2F] hover:underline"
             >
-              +84 546-6789
+              +(84) 546-6789
             </a>
             <br />
             Hotline:{" "}
@@ -51,13 +45,12 @@ export function ContactInfo() {
               href="tel:+844566789"
               className="transition hover:text-[#B88E2F] hover:underline"
             >
-              +84 456-6789
+              +(84) 456-6789
             </a>
           </p>
         </div>
       </div>
 
-      {/* Working Time */}
       <div className="flex gap-5">
         <img
           src="/Contact/clock.svg"
@@ -66,18 +59,15 @@ export function ContactInfo() {
         />
 
         <div>
-          <h3 className="text-[14px] font-semibold text-black">
+          <h3 className="font-poppins text-[24px] font-medium leading-none text-[#000000] mb-[5px]">
             Working Time
           </h3>
 
-          <p className="mt-1 text-[10px] leading-[14px] text-black">
-            Monday-Friday: 9:00 -
+          <p className="mt-[0px] w-[212px] font-poppins text-[16px] font-normal leading-none text-[#000000]">
+            Monday-Friday: 9:00 - 22:00
             <br />
-            22:00
             <br />
-            Saturday-Sunday: 9:00 -
-            <br />
-            21:00
+            Saturday-Sunday: 9:00 - 21:00
           </p>
         </div>
       </div>

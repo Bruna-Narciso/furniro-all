@@ -22,11 +22,8 @@ export function ContactForm() {
     },
   });
 
-  const onSubmit = (data: ContactFormData) => {
-    console.log("Contact form:", data);
-
+  const onSubmit = () => {
     alert("Mensagem enviada com sucesso!");
-
     reset();
   };
 
@@ -34,13 +31,12 @@ export function ContactForm() {
     <form
       onSubmit={handleSubmit(onSubmit)}
       noValidate
-      className="flex w-full flex-col"
+      className="flex w-full max-w-[528.75px] flex-col"
     >
-      {/* Name */}
-      <div className="mb-4">
+      <div className="mb-[36px]">
         <label
           htmlFor="name"
-          className="mb-2 block text-[10px] font-medium text-black"
+          className="mb-[22px] block font-poppins text-[16px] font-medium leading-none text-[#000000]"
         >
           Your name
         </label>
@@ -52,23 +48,23 @@ export function ContactForm() {
           {...register("name", {
             required: "Nome é obrigatório",
           })}
-          className={`h-[50px] w-full rounded-[5px] border px-4 text-[10px] text-black outline-none transition placeholder:text-gray-300 focus:border-[#B88E2F] ${
-            errors.name ? "border-red-500" : "border-gray-300"
-          }`}
+          className={`h-[75px] w-full rounded-[10px] border bg-white px-4 font-poppins text-[16px] text-black outline-none transition placeholder:text-[#9F9F9F] focus:border-[#B88E2F] ${errors.name
+              ? "border-red-500"
+              : "border-[#9F9F9F]"
+            }`}
         />
 
         {errors.name && (
-          <p className="mt-1 text-[9px] text-red-500">
+          <p className="mt-1 text-sm text-red-500">
             {errors.name.message}
           </p>
         )}
       </div>
 
-      {/* Email */}
-      <div className="mb-4">
+      <div className="mb-[36px]">
         <label
           htmlFor="email"
-          className="mb-2 block text-[10px] font-medium text-black"
+          className="mb-[22px] block font-poppins text-[16px] font-medium leading-none text-[#000000]"
         >
           Email address
         </label>
@@ -84,23 +80,23 @@ export function ContactForm() {
               message: "Digite um e-mail válido",
             },
           })}
-          className={`h-[50px] w-full rounded-[5px] border px-4 text-[10px] text-black outline-none transition placeholder:text-gray-300 focus:border-[#B88E2F] ${
-            errors.email ? "border-red-500" : "border-gray-300"
-          }`}
+          className={`h-[75px] w-full rounded-[10px] border bg-white px-4 font-poppins text-[16px] text-black outline-none transition placeholder:text-[#9F9F9F] focus:border-[#B88E2F] ${errors.email
+              ? "border-red-500"
+              : "border-[#9F9F9F]"
+            }`}
         />
 
         {errors.email && (
-          <p className="mt-1 text-[9px] text-red-500">
+          <p className="mt-1 text-sm text-red-500">
             {errors.email.message}
           </p>
         )}
       </div>
 
-      {/* Subject */}
-      <div className="mb-4">
+      <div className="mb-[36px]">
         <label
           htmlFor="subject"
-          className="mb-2 block text-[10px] font-medium text-black"
+          className="mb-[22px] block font-poppins text-[16px] font-medium leading-none text-[#000000]"
         >
           Subject
         </label>
@@ -110,15 +106,14 @@ export function ContactForm() {
           type="text"
           placeholder="This is an optional"
           {...register("subject")}
-          className="h-[50px] w-full rounded-[5px] border border-gray-300 px-4 text-[10px] text-black outline-none transition placeholder:text-gray-300 focus:border-[#B88E2F]"
+          className="h-[75px] w-full rounded-[10px] border border-[#9F9F9F] bg-white px-4 font-poppins text-[16px] text-black outline-none transition placeholder:text-[#9F9F9F] focus:border-[#B88E2F]"
         />
       </div>
 
-      {/* Message */}
-      <div className="mb-5">
+      <div className="mb-[40px]">
         <label
           htmlFor="message"
-          className="mb-2 block text-[10px] font-medium text-black"
+          className="mb-[22px] block font-poppins text-[16px] font-medium leading-none text-[#000000]"
         >
           Message
         </label>
@@ -129,22 +124,22 @@ export function ContactForm() {
           {...register("message", {
             required: "Mensagem é obrigatória",
           })}
-          className={`h-[85px] w-full resize-none rounded-[5px] border px-4 py-4 text-[10px] text-black outline-none transition placeholder:text-gray-300 ${
-            errors.message ? "border-red-500" : "border-gray-300"
-          } focus:border-[#B88E2F]`}
+          className={`h-[120px] w-full resize-none rounded-[10px] border bg-white px-4 py-4 font-poppins text-[16px] text-black outline-none transition placeholder:text-[#9F9F9F] focus:border-[#B88E2F] ${errors.message
+              ? "border-red-500"
+              : "border-[#9F9F9F]"
+            }`}
         />
 
         {errors.message && (
-          <p className="mt-1 text-[9px] text-red-500">
+          <p className="mt-1 text-sm text-red-500">
             {errors.message.message}
           </p>
         )}
       </div>
 
-      {/* Submit */}
       <button
         type="submit"
-        className="h-[40px] w-[105px] rounded-[3px] bg-[#B88E2F] text-[10px] font-medium text-white transition hover:bg-[#a17b26] active:scale-[0.98]"
+        className="h-[55px] w-[237px] rounded-[5px] border border-[#B88E2F] bg-[#B88E2F] font-poppins text-[16px] font-normal leading-none text-white transition hover:bg-[#a17b26] active:scale-[0.98]"
       >
         Submit
       </button>
