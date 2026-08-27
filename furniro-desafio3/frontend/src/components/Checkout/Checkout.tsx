@@ -2,7 +2,6 @@ import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
 
-import CheckoutBanner from "./CheckoutBanner";
 import BillingForm from "./BillingForm";
 import OrderSummary from "./OrderSummary";
 
@@ -20,7 +19,6 @@ export function CheckoutInput() {
 
   const methods = useForm<CheckoutFormData>({
     resolver: zodResolver(checkoutSchema),
-
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -37,13 +35,11 @@ export function CheckoutInput() {
     },
   });
 
-  const onSubmit = (data: CheckoutFormData) => {
+  const onSubmit = () => {
     if (items.length === 0) {
       toast.error("Seu carrinho está vazio.");
       return;
     }
-
-    console.log("Checkout:", data);
 
     toast.success("Pedido realizado com sucesso!");
 
@@ -52,20 +48,28 @@ export function CheckoutInput() {
 
   return (
     <div className="min-h-screen bg-white">
-      <CheckoutBanner />
-
-      <main className="mx-auto w-full max-w-[1280px] px-6 py-12 md:px-10 lg:px-20">
+      <main className="mx-auto w-full max-w-[1280px] px-5 py-12 sm:px-8 lg:px-20">
         <FormProvider {...methods}>
           <form
             onSubmit={methods.handleSubmit(onSubmit)}
-            className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-20"
+            className="
+              grid
+              grid-cols-1
+              gap-16
+              lg:grid-cols-2
+              lg:gap-20
+            "
           >
             <BillingForm />
-            <OrderSummary />
+
+            <div className="w-full min-w-0">
+              <OrderSummary />
+            </div>
           </form>
         </FormProvider>
       </main>
-      <Benefits/>
+
+      <Benefits />
     </div>
   );
 }

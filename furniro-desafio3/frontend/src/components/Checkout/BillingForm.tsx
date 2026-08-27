@@ -23,85 +23,81 @@ export default function BillingForm() {
     formState: { errors },
   } = useFormContext<CheckoutFormData>();
 
-async function searchZipCode(zipCode: string) {
-  const cleanZipCode = zipCode.replace(/\D/g, "");
+  async function searchZipCode(zipCode: string) {
+    const cleanZipCode = zipCode.replace(/\D/g, "");
 
-  if (cleanZipCode.length !== 8) {
-    return;
-  }
-
-  try {
-    const response = await fetch(
-      `https://viacep.com.br/ws/${cleanZipCode}/json/`,
-    );
-
-    if (!response.ok) {
-      throw new Error("Erro ao consultar o CEP.");
-    }
-
-    const data: ViaCepResponse = await response.json();
-
-    console.log("CEP digitado:", cleanZipCode);
-    console.log("Resposta ViaCEP:", data);
-
-    if (data.erro) {
-      setError("zipCode", {
-        type: "manual",
-        message: "CEP não encontrado.",
-      });
-
-      setValue("country", "");
-      setValue("street", "");
-      setValue("city", "");
-      setValue("province", "");
-
+    if (cleanZipCode.length !== 8) {
       return;
     }
 
-    clearErrors("zipCode");
+    try {
+      const response = await fetch(
+        `https://viacep.com.br/ws/${cleanZipCode}/json/`,
+      );
 
-    setValue("country", "Brazil", {
-      shouldValidate: true,
-      shouldDirty: true,
-    });
+      if (!response.ok) {
+        throw new Error("Erro ao consultar o CEP.");
+      }
 
-    setValue("street", data.logradouro, {
-      shouldValidate: true,
-      shouldDirty: true,
-    });
+      const data: ViaCepResponse = await response.json();
 
-    setValue("city", data.localidade, {
-      shouldValidate: true,
-      shouldDirty: true,
-    });
+      if (data.erro) {
+        setError("zipCode", {
+          type: "manual",
+          message: "CEP não encontrado.",
+        });
 
-    setValue("province", data.uf, {
-      shouldValidate: true,
-      shouldDirty: true,
-    });
-  } catch (error) {
-    console.error("Erro ao buscar CEP:", error);
+        setValue("country", "");
+        setValue("street", "");
+        setValue("city", "");
+        setValue("province", "");
 
-    setError("zipCode", {
-      type: "manual",
-      message: "Não foi possível consultar o CEP.",
-    });
+        return;
+      }
+
+      clearErrors("zipCode");
+
+      setValue("country", "Brazil", {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+
+      setValue("street", data.logradouro, {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+
+      setValue("city", data.localidade, {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+
+      setValue("province", data.uf, {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+    } catch (error) {
+      console.error("Erro ao buscar CEP:", error);
+
+      setError("zipCode", {
+        type: "manual",
+        message: "Não foi possível consultar o CEP.",
+      });
+    }
   }
-}
 
   return (
     <section className="w-full">
-      <h2 className="mb-8 text-[24px] font-semibold text-black">
+      <h2 className="mb-[52px] font-poppins text-[36px] font-semibold leading-none text-black">
         Billing details
       </h2>
 
       <div className="space-y-5">
-        {/* First name / Last name */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           <div>
             <label
               htmlFor="firstName"
-              className="mb-2 block text-[12px] text-black"
+              className="mb-2 block font-poppins text-[16px] font-medium leading-none text-black"
             >
               First Name
             </label>
@@ -123,7 +119,7 @@ async function searchZipCode(zipCode: string) {
           <div>
             <label
               htmlFor="lastName"
-              className="mb-2 block text-[12px] text-black"
+              className="mb-2 block font-poppins text-[16px] font-medium leading-none text-black"
             >
               Last Name
             </label>
@@ -143,11 +139,10 @@ async function searchZipCode(zipCode: string) {
           </div>
         </div>
 
-        {/* Company */}
         <div>
           <label
             htmlFor="company"
-            className="mb-2 block text-[12px] text-black"
+            className="mb-2 block font-poppins text-[16px] font-medium leading-none text-black"
           >
             Company Name (Optional)
           </label>
@@ -166,11 +161,10 @@ async function searchZipCode(zipCode: string) {
           )}
         </div>
 
-        {/* ZIP */}
         <div>
           <label
             htmlFor="zipCode"
-            className="mb-2 block text-[12px] text-black"
+            className="mb-2 block font-poppins text-[16px] font-medium leading-none text-black"
           >
             ZIP code
           </label>
@@ -182,9 +176,7 @@ async function searchZipCode(zipCode: string) {
             maxLength={9}
             {...register("zipCode", {
               onChange: (event) => {
-                const value = event.target.value;
-
-                searchZipCode(value);
+                searchZipCode(event.target.value);
               },
             })}
             className="h-[42px] w-full rounded-[4px] border border-[#9F9F9F] px-3 text-[13px] outline-none focus:border-[#B88E2F]"
@@ -197,11 +189,10 @@ async function searchZipCode(zipCode: string) {
           )}
         </div>
 
-        {/* Country */}
         <div>
           <label
             htmlFor="country"
-            className="mb-2 block text-[12px] text-black"
+            className="mb-2 block font-poppins text-[16px] font-medium leading-none text-black"
           >
             Country / Region
           </label>
@@ -220,11 +211,10 @@ async function searchZipCode(zipCode: string) {
           )}
         </div>
 
-        {/* Street */}
         <div>
           <label
             htmlFor="street"
-            className="mb-2 block text-[12px] text-black"
+            className="mb-2 block font-poppins text-[16px] font-medium leading-none text-black"
           >
             Street address
           </label>
@@ -243,11 +233,10 @@ async function searchZipCode(zipCode: string) {
           )}
         </div>
 
-        {/* City */}
         <div>
           <label
             htmlFor="city"
-            className="mb-2 block text-[12px] text-black"
+            className="mb-2 block font-poppins text-[16px] font-medium leading-none text-black"
           >
             Town / City
           </label>
@@ -266,11 +255,10 @@ async function searchZipCode(zipCode: string) {
           )}
         </div>
 
-        {/* Province */}
         <div>
           <label
             htmlFor="province"
-            className="mb-2 block text-[12px] text-black"
+            className="mb-2 block font-poppins text-[16px] font-medium leading-none text-black"
           >
             Province
           </label>
@@ -289,11 +277,10 @@ async function searchZipCode(zipCode: string) {
           )}
         </div>
 
-        {/* Additional address */}
         <div>
           <label
             htmlFor="additionalAddress"
-            className="mb-2 block text-[12px] text-black"
+            className="mb-2 block font-poppins text-[16px] font-medium leading-none text-black"
           >
             Add-on address
           </label>
@@ -312,11 +299,10 @@ async function searchZipCode(zipCode: string) {
           )}
         </div>
 
-        {/* Email */}
         <div>
           <label
             htmlFor="email"
-            className="mb-2 block text-[12px] text-black"
+            className="mb-2 block font-poppins text-[16px] font-medium leading-none text-black"
           >
             Email address
           </label>
@@ -335,14 +321,13 @@ async function searchZipCode(zipCode: string) {
           )}
         </div>
 
-        {/* Additional information */}
         <div>
           <textarea
             id="additionalInformation"
             {...register("additionalInformation")}
             rows={1}
             placeholder="Additional information"
-            className="min-h-[42px] w-full resize-none rounded-[4px] border border-[#9F9F9F] px-3 py-3 text-[12px] outline-none placeholder:text-[#9F9F9F] focus:border-[#B88E2F]"
+            className="min-h-[42px] w-full resize-none rounded-[4px] border border-[#9F9F9F] px-3 py-3 text-[12px] outline-none placeholder:text-[#9F9F9F] focus:border-[#B88E2F] mb-[160px]"
           />
 
           {errors.additionalInformation && (
