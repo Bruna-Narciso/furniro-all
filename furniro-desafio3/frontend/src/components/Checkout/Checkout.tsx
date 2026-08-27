@@ -4,12 +4,10 @@ import toast from "react-hot-toast";
 
 import BillingForm from "./BillingForm";
 import OrderSummary from "./OrderSummary";
-
 import {
   checkoutSchema,
   type CheckoutFormData,
 } from "../../../../backend/schemas/checkoutSchema";
-
 import { useCartStore } from "../../stores/cart.store";
 import Benefits from "../Benefits/Benefits";
 
@@ -19,6 +17,7 @@ export function CheckoutInput() {
 
   const methods = useForm<CheckoutFormData>({
     resolver: zodResolver(checkoutSchema),
+    mode: "onSubmit",
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -35,15 +34,18 @@ export function CheckoutInput() {
     },
   });
 
-  const onSubmit = () => {
-    if (items.length === 0) {
-      toast.error("Seu carrinho está vazio.");
-      return;
-    }
+const onSubmit = () => {
+  if (items.length === 0) {
+    toast.error("Seu carrinho está vazio.");
+    return;
+  }
 
-    toast.success("Pedido realizado com sucesso!");
+  toast.success("Pedido realizado com sucesso!");
+  clearCart();
+};
 
-    clearCart();
+  const onError = () => {
+    toast.error("Please fill in all required fields.");
   };
 
   return (
@@ -51,7 +53,7 @@ export function CheckoutInput() {
       <main className="mx-auto w-full max-w-[1280px] px-5 py-12 sm:px-8 lg:px-20">
         <FormProvider {...methods}>
           <form
-            onSubmit={methods.handleSubmit(onSubmit)}
+            onSubmit={methods.handleSubmit(onSubmit, onError)}
             className="
               grid
               grid-cols-1

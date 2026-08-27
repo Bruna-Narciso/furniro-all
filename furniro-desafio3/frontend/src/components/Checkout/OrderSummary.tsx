@@ -1,4 +1,5 @@
 import { useFormContext } from "react-hook-form";
+
 import { formatPrice } from "../../utils/price";
 import { useCartStore } from "../../stores/cart.store";
 import type { CheckoutFormData } from "../../../../backend/schemas/checkoutSchema";
@@ -82,12 +83,12 @@ export default function OrderSummary() {
           </span>
         </label>
 
-        <p className="mb-5 ml-6 font-poppins text-[16px] font-light leading-none text-[#9F9F9F] text-justify">
+        <p className="mb-5 ml-6 text-justify font-poppins text-[16px] font-light leading-none text-[#9F9F9F]">
           Make your payment directly into our bank account. Please use your
           Order ID as the payment reference. Your order will not be shipped
           until the funds have cleared in our account.
         </p>
-
+        
         <label className="mb-4 flex cursor-pointer items-center gap-3">
           <input
             type="radio"
@@ -95,11 +96,12 @@ export default function OrderSummary() {
             {...register("paymentMethod")}
             className="h-3 w-3 shrink-0 accent-black"
           />
-
           <span className="font-poppins text-[16px] font-light leading-none text-[#9F9F9F]">
             Direct bank transfer
           </span>
         </label>
+
+
 
         <label className="mb-4 flex cursor-pointer items-center gap-3">
           <input
@@ -120,7 +122,7 @@ export default function OrderSummary() {
           </p>
         )}
 
-        <p className="mb-6 font-poppins text-[16px] font-light leading-none text-[#9F9F9F] text-justify">
+        <p className="mb-6 text-justify font-poppins text-[16px] font-light leading-none text-[#9F9F9F]">
           Your personal data will be used to support your experience
           throughout this website, to manage access to your account, and for
           other purposes described in our{" "}
